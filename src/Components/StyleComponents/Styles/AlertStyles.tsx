@@ -1,13 +1,4 @@
-import { Alert, StyleSheet } from 'react-native';
-
-const styles = StyleSheet.create({
-    alertTitle: {
-        fontWeight: "800",
-    },
-    ok: {
-        fontWeight: "800",
-    }
-});
+import { Alert } from 'react-native';
 
 interface Props {
     title: string;
@@ -25,7 +16,7 @@ interface Props {
     ];
 }
 
-const AlertComponent = ( {title, content, buttons }: Props ) =>
+const AlertComponent_com = ( {title, content, buttons }: Props ) =>
     Alert.alert(
         title,
         content,
@@ -43,4 +34,4 @@ const AlertComponent = ( {title, content, buttons }: Props ) =>
     { cancelable: false }
 );
 
-export default AlertComponent;
+export default { AlertComponent_com };
