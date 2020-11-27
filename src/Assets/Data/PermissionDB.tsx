@@ -5,7 +5,7 @@ const DATA = [
         iconSize: 30,
         listTitle: '위치',
         subTitle: '(선택)',
-        content: '내 위치에서 그린존 확인'
+        content: '내 위치에서 민트존 확인'
     },
     {
         id: "1",

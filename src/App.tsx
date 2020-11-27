@@ -1,24 +1,36 @@
 import React from 'react';
-import SplashScreen from 'react-native-splash-screen';
 import Styled from 'styled-components/native';
-import Permission from '~/Screens/Permission'
-import Login from '~/Screens/Login';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
+import SplashScreen from 'react-native-splash-screen';
+import Navigator from '~/Screens/Navigator';
+import {UserContextProvider} from '~/Context/User';
 
-const Container = Styled.SafeAreaView`
+
+
+import Intro from '~/Screens/Intro';
+import { StackNavigationProp } from '@react-navigation/stack';
+type NavigationProp = StackNavigationProp<StackNaviParamList, 'Intro'>;
+interface Props {
+    navigation: NavigationProp;
+};
+
+
+
+const SafeAreaView = Styled.SafeAreaView`
   flex: 1;
-  border: 2px solid yellow;
 `;
 
-const App = () => {
+interface Props {}
+const App = ({}: Props) => {
 
   SplashScreen.hide();
 
   return (
-    <Container>        
-      <Permission />
-      <Login />
-    </Container>
+    <SafeAreaView >
+      <Intro />
+      {/* <UserContextProvider>
+        <Navigator />    
+      </UserContextProvider> */}
+    </SafeAreaView>
   );
 };
 export default App;
