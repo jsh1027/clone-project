@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { Dimensions } from 'react-native';
 import Styled from 'styled-components/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import BottomButtonBox from '~/Components/Intro/BottomButtonBox';
+// import BottomButtonBox from '~/Components/Intro/BottomButtonBox';
+import BottomButtonBox from '~/LoginTest/BottomButtonBox2';
 import TopButtonBox from '~/Components/Intro/TopButtonBox';
 import ImageSlider from '~/Components/Intro/ImageSlider';
 import commonValue from '~/Components/Common/commonValue';
@@ -13,7 +14,6 @@ interface Props {
     navigation: NavigationProp;
 };
 
-
 const Container = Styled.SafeAreaView`
     flex: 1;
     flex-direction: column;
@@ -21,7 +21,7 @@ const Container = Styled.SafeAreaView`
 `;
 
 const SliderBox = Styled.View`
-    flex: 9;
+    flex: 12;
     background-color: #ffffff;
 `;
 

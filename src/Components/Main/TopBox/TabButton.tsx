@@ -4,6 +4,14 @@ import Styled
 import commonValue from '~/Components/Common/commonValue';
 import Icon from 'react-native-vector-icons/Entypo'
 import { normalize } from '~/Components/Common/TextStyles';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+
+
+type NavigationProp = StackNavigationProp<StackNaviParamList, 'Main'>;
+interface Props {
+    navigation: NavigationProp;
+};
 
 const Tab = Styled.TouchableHighlight`
     flex: 1;
@@ -19,10 +27,8 @@ const TabIcon = Styled(Icon)`
     font-size: ${normalize(32)}px;
 `;
 
-interface Props {
-    onPress?: () => void;
-}
-const TabButton = (props: Props) => {
+
+const TabButton = ({navigation}: Props) => {
     const [ color, setColor ] = useState(commonValue.c_brand);
     const colorChange = (isPressed: boolean) => isPressed ? setColor('#ffffff') : setColor(commonValue.c_brand);
 
@@ -31,6 +37,7 @@ const TabButton = (props: Props) => {
                 underlayColor={commonValue.c_brand}
                 onPressIn={()=> colorChange(true)}
                 onPressOut={()=> colorChange(false)}
+                onPress={()=>navigation.navigate("Intro")}
             >
                 <TabIcon name="menu" color={color} />
             </Tab>

@@ -6,13 +6,17 @@ import Loading from '~/Components/Common/Loading';
 import { StatusBar } from 'react-native';
 
 
+
 import Permission from '~/Screens/Permission';
 import PushNotice from '~/Screens/PushNotice';
 import Intro from '~/Screens/Intro';
 import Main from '~/Screens/Main';
+import TestBottomSheet from '~/LoginTest/TestBottomSheet';
+
 
 const PermissionStack = createStackNavigator();
 const RootStack = createStackNavigator();
+const MainStack = createStackNavigator();
 
 function PermissionNavi() {
     return (
@@ -35,14 +39,46 @@ function PermissionNavi() {
 };
 
 //=== Main
-function RootNavi() {
+function MainNavi() {
     return (
-        <RootStack.Navigator 
+        <MainStack.Navigator 
             headerMode="none"
             initialRouteName="Main"
         >
-            <RootStack.Screen name="Main" component={Main} />            
-            <RootStack.Screen name="Intro" component={Intro} />            
+            <MainStack.Screen name="Main" component={Main} />            
+            <MainStack.Screen name="Intro" component={Intro} />                    
+        </MainStack.Navigator>
+    );
+};
+
+//=== Root
+function RootNavi() {
+    return (
+        <RootStack.Navigator 
+        screenOptions={{
+            headerShown: false,
+            cardStyle: { backgroundColor: 'transparent' },
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: ({ current: { progress } }) => ({
+              cardStyle: {
+                opacity: progress.interpolate({
+                  inputRange: [0, 0.5, 0.9, 1],
+                  outputRange: [0, 0.25, 0.7, 1],
+                }),
+              },
+              overlayStyle: {
+                opacity: progress.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0, 0.5],
+                  extrapolate: 'clamp',
+                }),
+              },
+            }),
+          }}        
+            mode="modal"
+        >
+            <RootStack.Screen name="MainStack" component={MainNavi} />            
+            <RootStack.Screen name="LoginModal" component={TestBottomSheet} />                  
         </RootStack.Navigator>
     );
 };

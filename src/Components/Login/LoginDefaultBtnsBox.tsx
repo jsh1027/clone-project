@@ -1,6 +1,6 @@
 import React from 'react';
 import Styled from 'styled-components/native';
-import { ContentText } from '~/Components/Common/TextStyles';
+import { ContentText, TitleText } from '~/Components/Common/TextStyles';
 import commonValue from '~/Components/Common/commonValue';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -58,9 +58,8 @@ const PanelHandle = Styled.View`
 
 const Container = Styled.View`
   width: 100%;
-  /* justify-content: flex-start; */
+  justify-content: center;
   align-items: center;
-  border: red;
 `;
 
 const TitleBox = Styled.View`
@@ -70,58 +69,24 @@ const TitleBox = Styled.View`
     align-items: flex-start;
 `;
 
-const TouchableOpacity = Styled.TouchableOpacity`
-    width: 100%;
-    height: 60px;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border-radius: 30px;
-    margin-bottom: 10px;
-`;
-
-const RoundBtnText = Styled(ContentText)`
-    color: #ffffff;
-    font-weight: bold;
-`;
-
-const BtnIcon = Styled(Icon)`
-    position: absolute;
-    left: 20px;
-    color: #ffffff;
-    font-size: 27px;
-`;
-
-
-
-const RenderHeader = () => (
-    <Shadow
-      locations={[0, 0.7]}
-      colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.15)']} 
-    >
-      <TestBox>
-        <Semicircle />
-      </TestBox>
-      <HeaderBox>
-        <PanelBox>
-          <PanelHandle />
-        </PanelBox>
-      </HeaderBox>
-  </Shadow>
-);
-
-
 
 
 const LoginDefaultBtnsBox = () => {
     return (
-      <Container>
+      <Container>        
+        <TitleBox>
+          <TitleText 
+          onPress={()=>console.log('d')}>
+            로그인
+          </TitleText>
+        </TitleBox>
         <LoginButton 
         bgColor='#009afa'
         icon='alpha-l-circle'
         iColor='#ffffff'
         tColor='#ffffff'
         text='L.Point 로그인'
+        pressFC={'L.Point 로그인'}
         />
 
         <LoginButton 
@@ -130,7 +95,8 @@ const LoginDefaultBtnsBox = () => {
         iColor='#ffffff'
         tColor='#ffffff'
         text='민트카 로그인'
-        />          
+        pressFC={'민트카 로그인'}
+        />      
       </Container>
     );
 };

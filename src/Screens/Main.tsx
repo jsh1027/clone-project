@@ -22,7 +22,7 @@ const Main = ({navigation}: Props) => {
     return (
         <SafeAreaView>
             <Map />
-            <TopBox />
+            <TopBox navigation={navigation} />
             <BottomBox />
         </SafeAreaView>
     );

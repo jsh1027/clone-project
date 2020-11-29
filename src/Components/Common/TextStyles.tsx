@@ -21,7 +21,7 @@ const TitleText = Styled.Text`
 `;
 
 const ContentTitleText = Styled.Text`
-    font-size: ${normalize(22)}px;
+    font-size: ${normalize(18)}px;
     color: ${commonValue.c_title};
     font-weight: bold;
 `;

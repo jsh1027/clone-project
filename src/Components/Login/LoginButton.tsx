@@ -29,6 +29,7 @@ const BtnIcon = Styled(Icon)`
 
 const LoginButton = ( props ) => (
   <TouchableOpacity
+  onPress={()=>console.log(props.pressFC)}
   style={{
     backgroundColor: props.bgColor,
     borderWidth: props.boderW,

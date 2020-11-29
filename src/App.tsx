@@ -7,6 +7,7 @@ import {UserContextProvider} from '~/Context/User';
 
 
 import Intro from '~/Screens/Intro';
+import Join from '~/Screens/Join';
 import { StackNavigationProp } from '@react-navigation/stack';
 type NavigationProp = StackNavigationProp<StackNaviParamList, 'Intro'>;
 interface Props {
@@ -26,10 +27,11 @@ const App = ({}: Props) => {
 
   return (
     <SafeAreaView >
-      <Intro />
-      {/* <UserContextProvider>
+      {/* <Intro /> */}
+      <UserContextProvider>
         <Navigator />    
-      </UserContextProvider> */}
+      </UserContextProvider>
+      {/* <Join /> */}
     </SafeAreaView>
   );
 };
