@@ -69,9 +69,9 @@ const BottomBtn = Styled.TouchableOpacity`
 `;
 
 const KeyboardAvoidingView = Styled.KeyboardAvoidingView`
-    /* flex: 1; */
+    flex: 1;
     width: ${windowW}px;
-    height: 100px;
+    /* height: 100px; */
     justify-content: flex-end;
     /* border: red; */
 `;
@@ -104,12 +104,8 @@ const InputBorder = Styled.View`
 
 
 
-interface DataProps {
-    key: string|undefined;
-    value: string|number|undefined;
-}
 const Join = ( { navigation }: Props ) => {
-    const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
+    const fadeAnim = useRef(new Animated.Value(0)).current 
 
     React.useEffect(() => {
         Animated.timing(
@@ -123,7 +119,6 @@ const Join = ( { navigation }: Props ) => {
     }, [fadeAnim])
 
 
-    const [ inputs, setInputs ] = useState<Object | undefined>(undefined);
     const [ email, setEmail ] = useState<string | undefined>(undefined);
     const [ pw, setPw ] = useState<string | undefined>(undefined);
     const [ name, setName ] = useState<string | undefined>(undefined);
@@ -139,9 +134,7 @@ const Join = ( { navigation }: Props ) => {
             "birth" : birth,
             "phone" : phone
         }
-
-        const json_joinInfo = JSON.stringify(joinInfo);
-        return(json_joinInfo);
+        return(JSON.stringify(joinInfo));
     }
 
     //request
@@ -249,8 +242,8 @@ const Join = ( { navigation }: Props ) => {
                     <BottomBtn
                     onPress={
                         () => {
-                            // Alert.alert(submitFC());
-                            fetchJoin();
+                            Alert.alert(submitFC());
+                            // fetchJoin();
                         }}
                     >
                         <ContentTitleText style={{color: '#ffffff'}}>
