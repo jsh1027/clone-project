@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
+import { CardStyleInterpolators, createStackNavigator, TransitionPresets, TransitionSpecs } from '@react-navigation/stack';
 import {UserContext} from '~/Context/User';
 import Loading from '~/Components/Common/Loading';
 import { StatusBar } from 'react-native';
@@ -12,6 +12,10 @@ import PushNotice from '~/Screens/PushNotice';
 import Intro from '~/Screens/Intro';
 import Main from '~/Screens/Main';
 import TestBottomSheet from '~/LoginTest/TestBottomSheet';
+import TestAnotherBtnsBottom from '~/LoginTest/TestAnotherBtnsBottom';
+import JoinSelectModal from '~/Screens/Join/JoinSelectModal';
+import JoinAnotherSelectModal from '~/Screens/Join/JoinAnotherSelectModal';
+import Join from '~/Screens/Join/Join';
 
 
 const PermissionStack = createStackNavigator();
@@ -70,15 +74,86 @@ function RootNavi() {
                 opacity: progress.interpolate({
                   inputRange: [0, 1],
                   outputRange: [0, 0.5],
-                  extrapolate: 'clamp',
+                  extrapolate: 'identity',
                 }),
               },
             }),
           }}        
             mode="modal"
         >
-            <RootStack.Screen name="MainStack" component={MainNavi} />            
-            <RootStack.Screen name="LoginModal" component={TestBottomSheet} />                  
+
+        {/* 메인  */}
+            <RootStack.Screen name="MainStack" component={MainNavi} />
+
+                  
+        {/* 로그인  */}
+            <RootStack.Screen 
+                name="LoginModal" component={TestBottomSheet}
+                options={{
+                    gestureEnabled: true,
+                    cardStyleInterpolator: ({ current: { progress } }) => ({
+                      cardStyle: {
+                        opacity: progress.interpolate({
+                          inputRange: [0, 0.5, 0.9, 1],
+                          outputRange: [0, 0.25, 0.7, 1],
+                        }),
+                      },
+                      overlayStyle: {
+                        opacity: progress.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [0, 0.5],
+                          extrapolate: 'clamp',
+                        }),
+                      },
+                    }),
+                }}  
+            />
+            <RootStack.Screen 
+                name="Another" component={TestAnotherBtnsBottom}                 
+                options={{
+                    cardStyle: { backgroundColor: 'transparent' },
+                    cardOverlayEnabled: false,
+                }}    
+            />
+
+        {/* 회원가입  */}
+            <RootStack.Screen 
+                name="JoinSelect" component={JoinSelectModal}
+                options={{
+                    gestureEnabled: true,
+                    cardStyleInterpolator: ({ current: { progress } }) => ({
+                      cardStyle: {
+                        opacity: progress.interpolate({
+                          inputRange: [0, 0.5, 0.9, 1],
+                          outputRange: [0, 0.25, 0.7, 1],
+                        }),
+                      },
+                      overlayStyle: {
+                        opacity: progress.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [0, 0.5],
+                          extrapolate: 'clamp',
+                        }),
+                      },
+                    }),
+                }}  
+            />
+            <RootStack.Screen 
+                name="JoinAnotherSelect" component={JoinAnotherSelectModal}                 
+                options={{
+                    cardStyle: { backgroundColor: 'transparent' },
+                    cardOverlayEnabled: false,
+                    animationEnabled: false
+                  }}    
+            />            
+            <RootStack.Screen 
+                name="Join" component={Join}                 
+                options={{
+                    cardStyle: { backgroundColor: 'transparent' },
+                    cardOverlayEnabled: false,
+                    animationEnabled: false
+                  }}    
+            />            
         </RootStack.Navigator>
     );
 };

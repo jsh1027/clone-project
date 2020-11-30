@@ -6,33 +6,38 @@ import Another from '~/Components/Login/LoginAnotherBtnsBox2';
 import AnotherBtnsButton from '~/LoginTest/AnotherBtnsButton';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-const windowW = Dimensions.get('window').width;
-const fullHeight = Dimensions.get('window').height - 50;
 
 type NavigationProp = StackNavigationProp<StackNaviParamList, 'Intro'>;
 interface Props {
     navigation: NavigationProp;
 };
 
-const Container = Styled.View`
-    width: 100%;
-    height: 100%;
+const windowW = Dimensions.get('window').width;
+const windowH = Dimensions.get('window').height;
+const fullHeight = Dimensions.get('window').height - 50;
+
+const Container = Styled.TouchableWithoutFeedback`
+    width: ${windowW}px;
+    height: ${windowH}px;
     position: absolute;
     background-color: transparent;
     justify-content: flex-end;
     align-items: center;
-    /* border: blue; */
+    border: 3px solid green;
 `;
 
 const Sheet = Styled.View`
     width: 100%;
-    height: 350px;
+    height: ${fullHeight}px;
     padding: 10%;
     background-color: #ffffff;
     justify-content: flex-start;
     align-items: center;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+    bottom: 0;
+    border: red;
+    margin-top: 50px;
 `;
 
 const aStyle = StyleSheet.create({
@@ -44,14 +49,14 @@ const aStyle = StyleSheet.create({
 
 
 const TestBottomSheet = ( { navigation }: Props ) => {
-    let move = useRef(new Animated.ValueXY({x: 0, y: 350})).current;
+    let move = useRef(new Animated.ValueXY({x: 0, y: fullHeight-350})).current;
     
     useEffect(() => {
         Animated.timing(
             move,
             {
-            toValue: {x: 0, y: 0},
-            duration: 300,
+            toValue: {x: 0, y: 50},
+            duration: 400,
             useNativeDriver: true
             }
         ).start();
@@ -59,13 +64,15 @@ const TestBottomSheet = ( { navigation }: Props ) => {
 
 
     return(
-        <Container>
+        <Container
+        onPress={()=>navigation.goBack()}
+        >
             <Animated.View
                 style={[aStyle.animationView, { transform: [{translateY: move.y}] }]}
-            >
-                <Sheet>
-                    <Default />
-                    <AnotherBtnsButton navigation={navigation} />
+            >     
+                <Sheet>            
+                    <Default />     
+                    <Another />
                 </Sheet>
             </Animated.View>
         </Container>

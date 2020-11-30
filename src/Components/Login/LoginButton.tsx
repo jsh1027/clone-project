@@ -2,12 +2,13 @@ import React from 'react';
 import Styled from 'styled-components/native';
 import { ContentText } from '~/Components/Common/TextStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useNavigation } from '@react-navigation/native';
 
 
 
 const TouchableOpacity = Styled.TouchableOpacity`
-    width: 100%;
-    height: 60px;
+    width: 95%;
+    height: 57px;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -16,7 +17,6 @@ const TouchableOpacity = Styled.TouchableOpacity`
 `;
 
 const RoundBtnText = Styled(ContentText)`
-  font-weight: bold;
 `;
 
 const BtnIcon = Styled(Icon)`
@@ -27,25 +27,35 @@ const BtnIcon = Styled(Icon)`
 
 
 
-const LoginButton = ( props ) => (
-  <TouchableOpacity
-  onPress={()=>console.log(props.pressFC)}
-  style={{
-    backgroundColor: props.bgColor,
-    borderWidth: props.boderW,
-    borderColor: props.boderC
-  }}
-  >
-      <BtnIcon 
-      name={props.icon} 
-      style={{color: props.iColor}}
-      />
-      <RoundBtnText
-      style={{color: props.tColor}}
-      >
-          {props.text}
-      </RoundBtnText>
-  </TouchableOpacity>
-);
+const LoginButton = ( props ) => {
+
+  const navigation = useNavigation(); 
+
+  return ( 
+    <TouchableOpacity
+    onPress={()=>
+      {
+        console.log(props.pressFC);
+        navigation.navigate(props.naviFC);
+      }
+    }
+    style={{
+      backgroundColor: props.bgColor,
+      borderWidth: props.boderW,
+      borderColor: props.boderC
+    }}
+    >
+        <BtnIcon 
+        name={props.icon} 
+        style={{color: props.iColor}}
+        />
+        <RoundBtnText
+        style={{color: props.tColor}}
+        >
+            {props.text}
+        </RoundBtnText>
+    </TouchableOpacity>
+  );
+};
 
 export default LoginButton;

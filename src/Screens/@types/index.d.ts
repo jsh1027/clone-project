@@ -3,6 +3,9 @@ type StackNaviParamList = {
     PushNotice: undefined;
     Intro: undefined;
     Main: undefined;
-    Join: undefined;
     LoginModal: undefined;
+    Another: undefined;
+    JoinSelect: undefined;
+    JoinAnotherSelect: undefined;
+    Join: undefined;
 }

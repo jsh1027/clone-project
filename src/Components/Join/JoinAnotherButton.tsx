@@ -14,24 +14,24 @@ const fullHeight = Dimensions.get('window').height - 50;
 
 const Button = Styled.TouchableOpacity`
     width: 100%;
-    height: 60px;
+    height: 90px;
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
 `;
 
 
-const AnotherBtnsButton = ( { navigation }: Props ) => {
+const JoinAnotherButton = ( { navigation }: Props ) => {
     return(
         <Button
-        onPress={()=> navigation.navigate('Another')}
+        onPress={()=> navigation.navigate('JoinAnotherSelect')}
         >
             <SupplementText style={{textDecorationLine: 'underline'}}>
-                다른 방법으로 로그인
+                다른 방법으로 시작하기
             </SupplementText>
         </Button>
     );
 };
 
 
-export default AnotherBtnsButton;
+export default JoinAnotherButton;

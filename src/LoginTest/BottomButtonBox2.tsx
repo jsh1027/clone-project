@@ -56,7 +56,6 @@ const BottomButtonBox2 = ( {navigation}: Props ) => {
     const [ isSheetOn, setIsSheetOn ] = useState(false);
 
     return (
-        <>
         <Container>
             <Shadow
                 locations={[0, 0.7]}
@@ -66,24 +65,21 @@ const BottomButtonBox2 = ( {navigation}: Props ) => {
                     <Button 
                     onPress={
                         ()=> { 
-                            // setIsSheetOn(true); 
                             navigation.navigate("LoginModal")}
                     }>
                         <ContentTitleText>로그인</ContentTitleText>
                     </Button>
                     <Line />
-                    <Button>
+                    <Button
+                        onPress={
+                            ()=> { 
+                                navigation.navigate("JoinSelect")}
+                    }>
                         <ContentTitleText>회원가입</ContentTitleText>
                     </Button>
                 </Box>
             </Shadow>
         </Container>
-
-            {/* { isSheetOn ?
-            <TestBottomSheet />
-            :
-            <></> } */}
-        </>
     );
 };
 

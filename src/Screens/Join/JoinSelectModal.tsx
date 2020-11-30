@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Dimensions, StyleSheet, View } from "react-native";
 import Styled from 'styled-components/native';
-import Default from '~/Components/Login/LoginDefaultBtnsBox';
-import Another from '~/Components/Login/LoginAnotherBtnsBox2';
-import AnotherBtnsButton from '~/LoginTest/AnotherBtnsButton';
+import JoinDefault from '~/Components/Join/JoinDefault';
+import JoinAnotherButton from '~/Components/Join/JoinAnotherButton';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 const windowW = Dimensions.get('window').width;
@@ -26,13 +25,13 @@ const Container = Styled.View`
 
 const Sheet = Styled.View`
     width: 100%;
-    height: 350px;
+    height: 365px;
     padding: 10%;
     background-color: #ffffff;
     justify-content: flex-start;
     align-items: center;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 `;
 
 const aStyle = StyleSheet.create({
@@ -43,8 +42,8 @@ const aStyle = StyleSheet.create({
 
 
 
-const TestBottomSheet = ( { navigation }: Props ) => {
-    let move = useRef(new Animated.ValueXY({x: 0, y: 350})).current;
+const JoinSelectModal = ( { navigation }: Props ) => {
+    let move = useRef(new Animated.ValueXY({x: 0, y: 365})).current;
     
     useEffect(() => {
         Animated.timing(
@@ -64,8 +63,8 @@ const TestBottomSheet = ( { navigation }: Props ) => {
                 style={[aStyle.animationView, { transform: [{translateY: move.y}] }]}
             >
                 <Sheet>
-                    <Default />
-                    <AnotherBtnsButton navigation={navigation} />
+                    <JoinDefault />
+                    <JoinAnotherButton navigation={navigation} />
                 </Sheet>
             </Animated.View>
         </Container>
@@ -73,4 +72,4 @@ const TestBottomSheet = ( { navigation }: Props ) => {
 };
 
 
-export default TestBottomSheet;
+export default JoinSelectModal;

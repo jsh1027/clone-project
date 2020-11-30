@@ -15,7 +15,7 @@ function normalize(size: number) {
 }
 
 const TitleText = Styled.Text`
-    font-size: ${normalize(25)}px;
+    font-size: ${normalize(22)}px;
     color: ${commonValue.c_title};
     font-weight: bold;
 `;
@@ -27,17 +27,17 @@ const ContentTitleText = Styled.Text`
 `;
 
 const ContentText = Styled.Text`
-    font-size: ${normalize(18)}px;
+    font-size: ${normalize(15)}px;
     color: ${commonValue.c_content};
 `;
 
 const SupplementText = Styled.Text`
-    font-size: ${normalize(15)}px;
+    font-size: ${normalize(12)}px;
     color: ${commonValue.c_supplement};
 `;
 
 const BottomBtnText = Styled.Text`
-    font-size: ${normalize(22)}px;
+    font-size: ${normalize(20)}px;
     color: #ffffff;
     font-weight: bold;
 `;
