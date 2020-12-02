@@ -28,7 +28,7 @@ const TopButtonBox = ({navigation}: Props) => {
     return(
         <Container>
             <TextBtn 
-                onPress={ () => navigation.navigate('Main', undefined) }
+                onPress={ () => navigation.navigate('Main') }
             >
                 <SupplementText>둘러보기</SupplementText>
             </TextBtn>

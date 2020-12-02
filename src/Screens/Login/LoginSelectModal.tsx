@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Dimensions, StyleSheet, View } from "react-native";
 import Styled from 'styled-components/native';
-import JoinDefault from '~/Components/Join/JoinDefault';
-import JoinAnotherButton from '~/Components/Join/JoinAnotherButton';
+import LoginDefault from '~/Components/Login/LoginDefault';
+import LoginAnotherButton from '~/Components/Login/LoginAnotherButton';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ContentText } from '~/Components/Common/TextStyles';
 
@@ -43,7 +43,7 @@ const aStyle = StyleSheet.create({
 
 
 
-const JoinSelectModal = ( { navigation }: Props ) => {
+const LoginSelectModal = ( { navigation }: Props ) => {
     let move = useRef(new Animated.ValueXY({x: 0, y: 365})).current;
     
     useEffect(() => {
@@ -63,8 +63,8 @@ const JoinSelectModal = ( { navigation }: Props ) => {
                 style={[aStyle.animationView, { transform: [{translateY: move.y}] }]}
             >
                 <Sheet>
-                    <JoinDefault />
-                    <JoinAnotherButton navigation={navigation} />
+                    <LoginDefault />
+                    <LoginAnotherButton navigation={navigation} />
                 </Sheet>
             </Animated.View>
         </Container>
@@ -72,4 +72,4 @@ const JoinSelectModal = ( { navigation }: Props ) => {
 };
 
 
-export default JoinSelectModal;
+export default LoginSelectModal;

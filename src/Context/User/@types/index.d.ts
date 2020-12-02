@@ -1,12 +1,18 @@
 interface IUserInfo {
+    id: string;
     email: string;
-    password: string;
+    name: string;
+    tokens: {
+      accessToken: string;
+      refreshToken: string;
+    }
 }
-  
+
+
 interface IUserContext {
   isLoading: boolean;
   userInfo: IUserInfo | undefined;
-  login: (email: string, password: string) => void;
+  login: ( {}: IUserInfo ) => void;
   getUserInfo: () => void;
   logout: () => void;  
   permission: boolean | undefined;

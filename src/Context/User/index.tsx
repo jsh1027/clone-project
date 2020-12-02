@@ -1,10 +1,11 @@
 import React, {createContext, useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
+import { Value } from 'react-native-reanimated';
 
 const defaultContext: IUserContext = {
   isLoading: false,
   userInfo: undefined,
-  login: (email: string, password: string) => {},
+  login: ({}: IUserInfo) => {},
   getUserInfo: () => {},
   logout: () => {},
   checkPermission: (userCheck: boolean) => {},
@@ -42,24 +43,28 @@ const UserContextProvider = ({children}: Props) => {
         setIsLoading(true);
     };
 
-    const login = (email: string, password: string): void => {
+    const login = (obj: IUserInfo): void => {
         //서버로직 추가
-        AsyncStorage.setItem('token', 'save your token').then(() => {
-        setUserInfo({
-            email: 'dev.yakuza@gamil.com',
-            password: 'pass~!'
-        });
+        AsyncStorage.setItem('userInfo', JSON.stringify(obj)).then(() => {
+        setUserInfo(
+            {
+                id: obj.id,
+                email: obj.email,
+                name: obj.name,
+                tokens: {
+                    accessToken: obj.tokens.accessToken,
+                    refreshToken: obj.tokens.refreshToken
+                }
+            }
+        );
         // setIsLoading(true);
         });
     };
 
     const getUserInfo = (): void => {
-        AsyncStorage.getItem('token').then( value => {
+        AsyncStorage.getItem('userInfo').then( value => {
             if (value) {
-            setUserInfo({
-                email: 'jsh@gamil.com',
-                password: 'pass~!'
-            });
+                setUserInfo(JSON.parse(value));
             }
             // setIsLoading(true);
         })

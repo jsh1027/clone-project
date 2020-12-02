@@ -3,11 +3,16 @@ import { Animated, Dimensions, StyleSheet } from 'react-native';
 import Styled from 'styled-components/native';
 import commonValue from '~/Components/Common/commonValue';
 import LoginButton from '~/Components/Login/LoginButton';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+
+type NavigationProp = StackNavigationProp<StackNaviParamList, 'Intro'>;
+interface Props {
+    navigation: NavigationProp;
+};
 
 const windowH = Dimensions.get('window').height;
 const windowW = Dimensions.get('window').width;
-
-
 
 const Container = Styled.View`
   width: 100%;
@@ -24,8 +29,8 @@ const aStyle = StyleSheet.create({
 });
 
 
-const LoginAnotherBtnsBox = () => {  
-  const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
+const JoinAnotherBtns = ( { navigation }: Props ) => {  
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   React.useEffect(() => {
     Animated.timing(
@@ -36,6 +41,17 @@ const LoginAnotherBtnsBox = () => {
         useNativeDriver: true
       }
     ).start();
+
+    navigation.addListener('beforeRemove', (e) => {
+      Animated.timing(
+        fadeAnim,
+        {
+          toValue: 0,
+          duration: 200,
+          useNativeDriver: true
+        }
+      ).start();
+    });
   }, [fadeAnim])
 
   return (
@@ -95,4 +111,4 @@ const LoginAnotherBtnsBox = () => {
   );
 };
 
-export default LoginAnotherBtnsBox;
+export default JoinAnotherBtns;

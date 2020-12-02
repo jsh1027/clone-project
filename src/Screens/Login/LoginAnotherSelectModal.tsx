@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, Dimensions, StyleSheet } from "react-native";
 import Styled from 'styled-components/native';
-import JoinDefault from '~/Components/Join/JoinDefault';
+import LoginDefault from '~/Components/Login/LoginDefault';
 import JoinAnotherBtns from '~/Components/Join/JoinAnotherBtns';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Value } from 'react-native-reanimated';
@@ -41,14 +41,14 @@ const Sheet = Styled.View`
 
 
 
-const JoinAnotherSelectModal = ( { navigation }: Props ) => {
+const LoginAnotherSelectModal = ( { navigation }: Props ) => {
 
     return(
         <Container
         onPress={()=>navigation.goBack()}
         > 
             <Sheet>            
-                <JoinDefault />     
+                <LoginDefault />     
                 <JoinAnotherBtns navigation={navigation} />
             </Sheet>
         </Container>
@@ -56,4 +56,4 @@ const JoinAnotherSelectModal = ( { navigation }: Props ) => {
 };
 
 
-export default JoinAnotherSelectModal;
+export default LoginAnotherSelectModal;

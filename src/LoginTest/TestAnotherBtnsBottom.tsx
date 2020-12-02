@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Dimensions, StyleSheet, View } from "react-native";
 import Styled from 'styled-components/native';
-import Default from '~/Components/Login/LoginDefaultBtnsBox';
-import Another from '~/Components/Login/LoginAnotherBtnsBox2';
+import Default from '~/Components/Login/LoginDefault';
+import Another from '~/Components/Login/LoginAnotherButton';
 import AnotherBtnsButton from '~/LoginTest/AnotherBtnsButton';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -16,14 +16,13 @@ const windowW = Dimensions.get('window').width;
 const windowH = Dimensions.get('window').height;
 const fullHeight = Dimensions.get('window').height - 50;
 
-const Container = Styled.TouchableWithoutFeedback`
+const Container = Styled.View`
     width: ${windowW}px;
     height: ${windowH}px;
     position: absolute;
     background-color: transparent;
     justify-content: flex-end;
     align-items: center;
-    border: 3px solid green;
 `;
 
 const Sheet = Styled.View`
@@ -33,48 +32,21 @@ const Sheet = Styled.View`
     background-color: #ffffff;
     justify-content: flex-start;
     align-items: center;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
     bottom: 0;
-    border: red;
     margin-top: 50px;
 `;
-
-const aStyle = StyleSheet.create({
-    animationView: {
-      width: windowW
-    }
-});
 
 
 
 const TestBottomSheet = ( { navigation }: Props ) => {
-    let move = useRef(new Animated.ValueXY({x: 0, y: fullHeight-350})).current;
-    
-    useEffect(() => {
-        Animated.timing(
-            move,
-            {
-            toValue: {x: 0, y: 50},
-            duration: 400,
-            useNativeDriver: true
-            }
-        ).start();
-    }, [move]);
-
-
     return(
-        <Container
-        onPress={()=>navigation.goBack()}
-        >
-            <Animated.View
-                style={[aStyle.animationView, { transform: [{translateY: move.y}] }]}
-            >     
-                <Sheet>            
-                    <Default />     
-                    <Another />
-                </Sheet>
-            </Animated.View>
+        <Container>
+            <Sheet>            
+                <Default />     
+                <Another navigation={navigation} />
+            </Sheet>
         </Container>
     );
 };

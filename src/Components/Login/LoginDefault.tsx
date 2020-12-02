@@ -6,7 +6,7 @@ import LoginButton from '~/Components/Login/LoginButton';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 
-type NavigationProp = StackNavigationProp<StackNaviParamList, 'Join'>;
+type NavigationProp = StackNavigationProp<StackNaviParamList>;
 interface Props {
     navigation: NavigationProp;
 };
@@ -26,24 +26,21 @@ const TitleBox = Styled.View`
 
 
 
-const JoinDefault = () => {
+const LoginDefault = () => {
     return (
       <Container>        
         <TitleBox>
           <TitleText 
           onPress={()=>console.log('d')}>
-            회원가입
+            로그인
           </TitleText>
-          <SupplementText>
-            만 21세 이상, 운전면허 취득 1년 이후 이용가능
-          </SupplementText>
         </TitleBox>
         <LoginButton 
         bgColor='#009afa'
         icon='alpha-l-circle'
         iColor='#ffffff'
         tColor='#ffffff'
-        text='L.Point 통합회원'
+        text='L.Point 로그인'
         pressFC={'L.Point 로그인'}
         />
 
@@ -52,7 +49,7 @@ const JoinDefault = () => {
         icon='leaf'
         iColor='#ffffff'
         tColor='#ffffff'
-        text='민트카로 시작하기'
+        text='민트카 로그인'
         pressFC={'민트카 로그인'}
         naviFC={'JoinPermissionSelect'}
         />      
@@ -60,4 +57,4 @@ const JoinDefault = () => {
     );
 };
 
-export default JoinDefault;
+export default LoginDefault;

@@ -4,6 +4,7 @@ import { CardStyleInterpolators, createStackNavigator, TransitionPresets, Transi
 import {UserContext} from '~/Context/User';
 import Loading from '~/Components/Common/Loading';
 import { StatusBar } from 'react-native';
+import { DefaultOptions, GrowModalOptions, SlideOptions, DefaultInputOptions } from '~/Screens/Navigation/NavigationOptions';
 
 
 
@@ -13,10 +14,17 @@ import Intro from '~/Screens/Intro';
 import Main from '~/Screens/Main';
 import TestBottomSheet from '~/LoginTest/TestBottomSheet';
 import TestAnotherBtnsBottom from '~/LoginTest/TestAnotherBtnsBottom';
+
 import JoinSelectModal from '~/Screens/Join/JoinSelectModal';
 import JoinAnotherSelectModal from '~/Screens/Join/JoinAnotherSelectModal';
-import Join from '~/Screens/Join/Join';
+import JoinEmail from '~/Screens/Join/JoinInput/JoinEmail';
+import JoinPassword from '~/Screens/Join/JoinInput/JoinPassword';
+import JoinPermissionSelect from '~/Screens/Join/JoinInput/JoinPermissionSelect';
+import JoinPhonePermission from '~/Screens/Join/JoinInput/JoinPhonePermission';
 
+//Login
+import LoginSelectModal from '~/Screens/Login/LoginSelectModal';
+import LoginAnotherSelectModal from '~/Screens/Login/LoginAnotherSelectModal';
 
 const PermissionStack = createStackNavigator();
 const RootStack = createStackNavigator();
@@ -62,24 +70,8 @@ function RootNavi() {
         screenOptions={{
             headerShown: false,
             cardStyle: { backgroundColor: 'transparent' },
-            cardOverlayEnabled: true,
-            cardStyleInterpolator: ({ current: { progress } }) => ({
-              cardStyle: {
-                opacity: progress.interpolate({
-                  inputRange: [0, 0.5, 0.9, 1],
-                  outputRange: [0, 0.25, 0.7, 1],
-                }),
-              },
-              overlayStyle: {
-                opacity: progress.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0, 0.5],
-                  extrapolate: 'identity',
-                }),
-              },
-            }),
           }}        
-            mode="modal"
+          mode="modal"
         >
 
         {/* 메인  */}
@@ -88,71 +80,38 @@ function RootNavi() {
                   
         {/* 로그인  */}
             <RootStack.Screen 
-                name="LoginModal" component={TestBottomSheet}
-                options={{
-                    gestureEnabled: true,
-                    cardStyleInterpolator: ({ current: { progress } }) => ({
-                      cardStyle: {
-                        opacity: progress.interpolate({
-                          inputRange: [0, 0.5, 0.9, 1],
-                          outputRange: [0, 0.25, 0.7, 1],
-                        }),
-                      },
-                      overlayStyle: {
-                        opacity: progress.interpolate({
-                          inputRange: [0, 1],
-                          outputRange: [0, 0.5],
-                          extrapolate: 'clamp',
-                        }),
-                      },
-                    }),
-                }}  
+                name="LoginSelect" component={LoginSelectModal}
+                options={DefaultOptions}  
             />
             <RootStack.Screen 
-                name="Another" component={TestAnotherBtnsBottom}                 
-                options={{
-                    cardStyle: { backgroundColor: 'transparent' },
-                    cardOverlayEnabled: false,
-                }}    
+                name="LoginAnotherSelect" component={LoginAnotherSelectModal}                 
+                options={GrowModalOptions}    
             />
 
         {/* 회원가입  */}
             <RootStack.Screen 
                 name="JoinSelect" component={JoinSelectModal}
-                options={{
-                    gestureEnabled: true,
-                    cardStyleInterpolator: ({ current: { progress } }) => ({
-                      cardStyle: {
-                        opacity: progress.interpolate({
-                          inputRange: [0, 0.5, 0.9, 1],
-                          outputRange: [0, 0.25, 0.7, 1],
-                        }),
-                      },
-                      overlayStyle: {
-                        opacity: progress.interpolate({
-                          inputRange: [0, 1],
-                          outputRange: [0, 0.5],
-                          extrapolate: 'clamp',
-                        }),
-                      },
-                    }),
-                }}  
+                options={DefaultOptions}  
             />
             <RootStack.Screen 
                 name="JoinAnotherSelect" component={JoinAnotherSelectModal}                 
-                options={{
-                    cardStyle: { backgroundColor: 'transparent' },
-                    cardOverlayEnabled: false,
-                    animationEnabled: false
-                  }}    
+                options={GrowModalOptions}    
             />            
             <RootStack.Screen 
-                name="Join" component={Join}                 
-                options={{
-                    cardStyle: { backgroundColor: 'transparent' },
-                    cardOverlayEnabled: false,
-                    animationEnabled: false
-                  }}    
+                name="JoinPermissionSelect" component={JoinPermissionSelect}                
+                options={SlideOptions}     
+            />            
+            <RootStack.Screen 
+                name="JoinPhonePermission" component={JoinPhonePermission}                
+                options={SlideOptions}     
+            />            
+            <RootStack.Screen 
+                name="JoinEmail" component={JoinEmail}                
+                options={SlideOptions}     
+            />            
+            <RootStack.Screen 
+                name="JoinPassword" component={JoinPassword}                
+                options={SlideOptions}     
             />            
         </RootStack.Navigator>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import Styled from 'styled-components/native';
 import SplashScreen from 'react-native-splash-screen';
-import Navigator from '~/Screens/Navigator';
+import Navigator from '~/Screens/Navigation/Navigator';
 import {UserContextProvider} from '~/Context/User';
 
 

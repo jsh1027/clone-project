@@ -11,6 +11,7 @@ const commonValue = {
     "c_supplement": "#BEBEBE",
     "c_strong": "#04ADBF",
     "c_click":"#f3f3f3",
+    "c_unselect":"#d8d8d8",
 
     /* SafeAreaView Margin => Statusbar height */
     "sb_margintop": STATUSBAR_HEIGHT

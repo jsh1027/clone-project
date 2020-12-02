@@ -30,17 +30,28 @@ const aStyle = StyleSheet.create({
 
 
 const JoinAnotherBtns = ( { navigation }: Props ) => {  
-  const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   React.useEffect(() => {
     Animated.timing(
       fadeAnim,
       {
         toValue: 1,
-        duration: 1000,
+        duration: 700,
         useNativeDriver: true
       }
     ).start();
+
+    navigation.addListener('beforeRemove', (e) => {
+      Animated.timing(
+        fadeAnim,
+        {
+          toValue: 0,
+          duration: 200,
+          useNativeDriver: true
+        }
+      ).start();
+    });
   }, [fadeAnim])
 
   return (
