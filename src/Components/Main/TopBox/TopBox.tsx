@@ -15,7 +15,7 @@ const Container = Styled.View`
     height: 10%;
     flex-direction: row;
     align-items: center;
-    padding: 0px 10px;
+    padding: 0 3.5%;
 `;
 
 
@@ -24,7 +24,7 @@ const TopBox = ({navigation}: Props) => {
     return(
         <Container>
             <TabButton navigation={navigation}/>
-            <BannerButton />
+            <BannerButton navigation={navigation}/>
         </Container>
     );
 

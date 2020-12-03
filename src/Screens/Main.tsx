@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Styled from 'styled-components/native';
 import TopBox from '~/Components/Main/TopBox/TopBox';
 import BottomBox from '~/Components/Main/BottomBox/BottomBox';
 import Map from '~/Components/Main/Map';
 import { StackNavigationProp } from '@react-navigation/stack';
 import commonValue from '~/Components/Common/commonValue';
+import Geolocation from 'react-native-geolocation-service';
+
 
 type NavigationProp = StackNavigationProp<StackNaviParamList, 'Main'>;
 interface Props {
@@ -19,11 +21,13 @@ const SafeAreaView = Styled.SafeAreaView`
 
 
 const Main = ({navigation}: Props) => {
+    const [ pos, setPos ] = useState(undefined);
+
     return (
         <SafeAreaView>
-            <Map />
+            <Map pos={pos}/>
             <TopBox navigation={navigation} />
-            <BottomBox />
+            <BottomBox pos={pos} setPos={setPos}/>
         </SafeAreaView>
     );
 };

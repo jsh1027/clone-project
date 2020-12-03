@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Animated, Dimensions, StyleSheet, Button, Alert,  } from "react-native";
 import Styled from 'styled-components/native';
@@ -7,6 +7,7 @@ import InputHeader from '~/Components/Join/JoinInput/InputHeader';
 import { ContentText } from '~/Components/Common/TextStyles';
 import { checkEmail } from '~/Assets/Validate/validateFC';
 import LinearGradient from 'react-native-linear-gradient';
+import { UserContext } from '~/Context/User';
 
 
 
@@ -87,7 +88,7 @@ const aStyle = StyleSheet.create({
 });
 
 
-const JoinEmail = ( { route, navigation }: Props ) => {
+const JoinEmail = ( { navigation }: Props ) => {
     const fadeAnim = useRef(new Animated.Value(0)).current;
     React.useEffect(() => {
       Animated.timing( fadeAnim, { toValue: 1, duration: 700, useNativeDriver: true } ).start();
@@ -95,16 +96,48 @@ const JoinEmail = ( { route, navigation }: Props ) => {
         Animated.timing( fadeAnim, { toValue: 0, duration: 200, useNativeDriver: true } ).start(); });
     }, [fadeAnim]);
 
+
+
+    //로그인 Fetch =========================================================================>
+    const { login } = useContext<IUserContext>(UserContext);
     const [ email, setEmail ] = useState<string>('');
+    const [ password, setPassword ] = useState<string>('');
 
-    let msg = '이메일을 입력해주세요';
+    let msg = '로그인 정보를 입력해주세요';
 
-    const paramData = ()=>({
-        email: email,
-        name: route.params.name,
-        birth: route.params.birth,
-        phone: route.params.phone
-    });
+    const submitFC = ()=>{
+        const LoginInfo = {
+            email : email,
+            password : password
+        }
+        return(JSON.stringify(LoginInfo));
+    }
+
+    //request
+    let data = {
+        method: 'POST',
+        headers: {
+        'Accept':       'application/json',
+        'Content-Type': 'application/json',
+        },
+        body: submitFC()
+    };
+
+    function fetchLogin() {
+        let url = 'http://192.168.0.112:3332/greencar/user/login';
+            return fetch(url, data)
+        .then((res) => {
+            if(res.status === 400) return Alert.alert('죄송합니다. 다시 한번 시도해주세요.');
+            if(res.status === 200) return res.json();
+        })
+        .then( resdata => {
+            login(resdata);
+        }).catch(error => 
+            console.error(error)
+        );
+    };    
+    //로그인 Fetch =========================================================================<
+
 
     return(
         <>      
@@ -114,10 +147,11 @@ const JoinEmail = ( { route, navigation }: Props ) => {
                     <ContentBox>
                         <InputHeader 
                             navigation={navigation}
-                            firstLine="사용하실 이메일을"
-                            secondLine="알려주세요"
+                            firstLine="민트카 로그인"
+                            secondLine=""
                         />
                         <InputBox>
+
                             <TextInput
                             autoFocus={true}
                             textContentType={'emailAddress'}
@@ -127,20 +161,38 @@ const JoinEmail = ( { route, navigation }: Props ) => {
                             onChangeText={
                                 (text: string) => {
                                     setEmail(text);
-                                    checkEmail({email, msg});
+                                    // checkEmail({email, msg});
                                 }}                            
                             value={email}        
                             />
                             <InputBorder 
                             style={{backgroundColor: commonValue.c_brand}}
                             />
+
+                            <TextInput
+                            textContentType={'password'}
+                            autoCompleteType={'password'}
+                            secureTextEntry={true}
+                            selectionColor={commonValue.c_brand}
+                            placeholder={'비밀번호'}                          
+                            onChangeText={
+                                (text: string) => {
+                                    setPassword(text);
+                                }}                            
+                            value={password}        
+                            />
+                            <InputBorder 
+                            style={{backgroundColor: commonValue.c_brand}}
+                            />
+
+
                         </InputBox>
                         
 
                         <BottomBtn
                             disabled={!checkEmail({email, msg}).check}
                             onPress={()=>{
-                                if( (checkEmail({email, msg})).check ) navigation.navigate("JoinPassword", paramData());
+                                fetchLogin();
                             }}
                         >
                             <Gradient colors={['#f4ff5f', commonValue.c_brand]} start={{x: 0, y: 1}} end={{x: 0.5, y: 0}}

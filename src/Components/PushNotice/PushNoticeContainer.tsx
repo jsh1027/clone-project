@@ -3,13 +3,15 @@ import { PermissionsAndroid } from 'react-native';
 import Styled from 'styled-components/native';
 import { ContentTitleText, ContentText, SupplementText } from '~/Components/Common/TextStyles';
 import { RoundBtn } from '~/Components/Common/Button';
+import commonValue from '~/Components/Common/commonValue';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 const Container = Styled.View`
     width: 100%;
     height: 40%;
     background-color: #ffffff;
-    padding: 20px;
+    padding: 20px 35px;
     justify-content: center;
     align-items: center;
     border-top-right-radius: 20px;
@@ -35,6 +37,24 @@ const TextBtn = Styled.TouchableOpacity`
     margin-top: 10px;
 `;
 
+const BottomBtn = Styled.TouchableOpacity`
+    width: 100%;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    border-radius: 30px;
+    background-color: ${commonValue.c_supplement};
+`;
+
+const Gradient = Styled(LinearGradient)`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+`;
 
 interface Props{ 
     setGranted: React.Dispatch<React.SetStateAction<undefined | string>>;
@@ -72,18 +92,26 @@ const PushNoticeContainer = ({ setGranted }: Props) => {
                 <ContentTitleText style={{marginBottom: 5}}>
                     할인혜택 푸시알림 안내
                 </ContentTitleText>
-                <ContentText>할인혜택 푸시알림 수신에 동의하시면 특가/이벤트/쿠폰 등 각종 유용한 정보를 받아보실 수 있습니다.</ContentText>
+                <ContentText>할인혜택 푸시알림 수신에 동의하시면 특가 / 이벤트 / 쿠폰 등 각종 유용한 정보를 받아보실 수 있습니다.</ContentText>
             </TextBox>
 
             <BtnBox>
-                <RoundBtn style={{marginBottom: 5}}
+                <BottomBtn
+                    onPress={()=>{ pushPermission(); }}>
+                    <Gradient colors={['#f4ff5f', commonValue.c_brand]} start={{x: 0, y: 1}} end={{x: 0.5, y: 0}} />
+                    <ContentText style={{color: '#ffffff', fontWeight: 'bold'}}>
+                        동의
+                    </ContentText>
+                </BottomBtn>  
+
+                {/* <RoundBtn style={{marginBottom: 5}}
                           onPress={ () => {
                                 pushPermission();
                               } }>
                     <ContentText style={{color: '#ffffff', fontWeight: 'bold'}}>
                         동의
                     </ContentText>
-                </RoundBtn>
+                </RoundBtn> */}
                 
                 <TextBtn onPress={ () => setGranted('disagree')}>
                     <SupplementText style={{textDecorationLine: 'underline'}}>

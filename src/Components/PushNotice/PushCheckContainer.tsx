@@ -6,6 +6,7 @@ import { RoundBtn } from '~/Components/Common/Button';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { UserContext } from '~/Context/User';
 import AsyncStorage from '@react-native-community/async-storage';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 
@@ -19,7 +20,7 @@ const Container = Styled.View`
     width: 100%;
     height: 40%;
     background-color: #ffffff;
-    padding: 20px;
+    padding: 0 8% 0 8%;
     justify-content: center;
     align-items: center;
     border-top-right-radius: 20px;
@@ -41,6 +42,25 @@ const BtnBox = Styled.View`
 const Strong = Styled(ContentText)`
     color: ${commonValue.c_strong};
     font-weight: 700;
+`;
+
+const BottomBtn = Styled.TouchableOpacity`
+    width: 100%;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    border-radius: 30px;
+    background-color: ${commonValue.c_supplement};
+`;
+
+const Gradient = Styled(LinearGradient)`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
 `;
 
 
@@ -74,7 +94,8 @@ const PushCheckContainer = ({navigation, granted}: Props) => {
                 </ContentText>
             </TextBox>
             <BtnBox>
-                <RoundBtn
+
+                {/* <RoundBtn
                     onPress={ () =>{ 
                         AsyncStorage.setItem('checkPermission', 'check');
                         checkPermission(true);
@@ -83,7 +104,20 @@ const PushCheckContainer = ({navigation, granted}: Props) => {
                     <ContentText style={{color: '#ffffff', fontWeight: 'bold'}}>
                         확인
                     </ContentText>
-                </RoundBtn>
+                </RoundBtn> */}
+
+                <BottomBtn
+                onPress={ () =>{ 
+                    AsyncStorage.setItem('checkPermission', 'check');
+                    checkPermission(true);
+                    navigation.replace('Intro');
+                }} >
+                    <Gradient colors={['#f4ff5f', commonValue.c_brand]} start={{x: 0, y: 1}} end={{x: 0.5, y: 0}} />
+                    <ContentText style={{color: '#ffffff', fontWeight: 'bold'}}>
+                        동의
+                    </ContentText>
+                </BottomBtn> 
+
             </BtnBox>
         </Container>
     );

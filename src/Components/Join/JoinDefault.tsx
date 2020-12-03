@@ -6,7 +6,7 @@ import LoginButton from '~/Components/Login/LoginButton';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 
-type NavigationProp = StackNavigationProp<StackNaviParamList, 'Join'>;
+type NavigationProp = StackNavigationProp<StackNaviParamList>;
 interface Props {
     navigation: NavigationProp;
 };
@@ -39,22 +39,22 @@ const JoinDefault = () => {
           </SupplementText>
         </TitleBox>
         <LoginButton 
-        bgColor='#009afa'
-        icon='alpha-l-circle'
-        iColor='#ffffff'
-        tColor='#ffffff'
-        text='L.Point 통합회원'
-        pressFC={'L.Point 로그인'}
+          bgColor='#009afa'
+          icon='alpha-l-circle'
+          iColor='#ffffff'
+          tColor='#ffffff'
+          text='L.Point 통합회원'
+          pressFC={'L.Point 로그인'}
         />
 
         <LoginButton 
-        bgColor={commonValue.c_brand}
-        icon='leaf'
-        iColor='#ffffff'
-        tColor='#ffffff'
-        text='민트카로 시작하기'
-        pressFC={'민트카 로그인'}
-        naviFC={'JoinPermissionSelect'}
+          bgColor={commonValue.c_brand}
+          icon='leaf'
+          iColor='#ffffff'
+          tColor='#ffffff'
+          text='민트카로 시작하기'
+          pressFC={'민트카 로그인'}
+          naviFC={'JoinPermissionSelect'}
         />      
       </Container>
     );

@@ -20,46 +20,73 @@ const BtnBox = Styled.View`
     padding: 0 3%;
 `;
 
-const LocationSettingBtn = Styled.TouchableHighlight`
+const LocationSettingBtn = Styled.View`
     flex: 1;
     flex-direction: row;
     height: ${normalize(40)}px;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     border-radius: ${normalize(45)}px;
     background-color: #ffffff;
-    padding: 0px ${normalize(10)}px;
     margin: ${normalize(5)}px;
     elevation: 4;
+    overflow: hidden;
+`;
+
+const LocationTextBox = Styled.TouchableOpacity`
+    flex-direction: row;
+    height: ${normalize(40)}px;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #ffffff;
+    margin-right: 5px;
+    padding-left: 15px;
 `;
 
 const BtnText = Styled.Text`    
     font-size: ${normalize(16)}px;
     color: ${commonValue.c_supplement};
+    margin-left: 5px;
+`;
+
+const SearchIcon = Styled(Icon)`    
+    font-size: ${normalize(15)}px;
+    color: ${commonValue.c_supplement};
 `;
 
 const LocationIcon = Styled(Icon)`    
-    font-size: ${normalize(17)}px;
+    font-size: ${normalize(15)}px;
     color: ${commonValue.c_brand};
 `;
+const LocationBtn = Styled.TouchableHighlight`
+    width: ${normalize(40)}px;
+    height: ${normalize(40)}px;
+    border-radius: 40px;
+    justify-content: center;
+    align-items: center;
+`;
 
-const BottomBox = () => {
-    
+
+const BottomBox = ({pos, setPos}) => {
+
     return(
         <Container>
             <BtnBox style={{justifyContent: "flex-end"}}>
                 <CircleButton iconName="key" />
             </BtnBox>
             <BtnBox>
-                <LocationSettingBtn 
-                    underlayColor={commonValue.c_click} onPress={()=>console.log("d")} >
-                    <>
-                        <LocationIcon name="search" />
-                        <BtnText>
-                            어디에서 출발하세요?
-                        </BtnText>
+                <LocationSettingBtn>
+                    <LocationTextBox onPress={ () => console.log('!') } >
+                        <>
+                            <SearchIcon name="search" />
+                            <BtnText>
+                                어디에서 출발하세요?
+                            </BtnText>
+                        </>
+                    </LocationTextBox>
+                    <LocationBtn underlayColor={commonValue.c_click} onPress={() => setPos(pos+1) } >
                         <LocationIcon name="location-arrow" />
-                    </>
+                    </LocationBtn>
                 </LocationSettingBtn>
                 <CircleButton iconName="clock-outline" />
                 <CircleButton iconName="filter-plus" />

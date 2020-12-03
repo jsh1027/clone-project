@@ -51,7 +51,7 @@ const LoginDefault = () => {
         tColor='#ffffff'
         text='민트카 로그인'
         pressFC={'민트카 로그인'}
-        naviFC={'JoinPermissionSelect'}
+        naviFC={'Login'}
         />      
       </Container>
     );

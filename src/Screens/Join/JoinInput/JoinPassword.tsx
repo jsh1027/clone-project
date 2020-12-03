@@ -6,6 +6,7 @@ import commonValue from '~/Components/Common/commonValue';
 import InputHeader from '~/Components/Join/JoinInput/InputHeader';
 import { ContentText, SupplementText } from '~/Components/Common/TextStyles';
 import { checkPW } from '~/Assets/Validate/validateFC';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 
@@ -32,26 +33,36 @@ const Sheet = Styled.View`
     width: 100%;
     height: ${fullHeight}px;
     background-color: #ffffff;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     margin-top: 50px;
-    justify-content: flex-start;
 `;
 
-const TopBox = Styled.View`
+const ContentBox = Styled.View`
     width: 100%;
     justify-content: flex-start;    
     padding: 7% 10%;
 `;
 
 const BottomBtn = Styled.TouchableOpacity`
-    width: ${windowW}px;
+    width: 100%;
     height: 60px;
-    margin-top: 70px;
     justify-content: center;
     align-items: center;
+    margin-top: 50px;
+    border-radius: 30px;
+    background-color: ${commonValue.c_supplement};
+`;
+
+const Gradient = Styled(LinearGradient)`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
 `;
 
 const InputBox = Styled.View`
@@ -88,22 +99,21 @@ const JoinPassword = ( { route, navigation }: Props ) => {
     }, [fadeAnim]);
 
     const [ password, setPassword ] = useState<string>('');
-    const [ dataObj, setDataObj ] = useState<string>(undefined);
     let msg = '비밀번호를 입력해주세요';
 
-    const entries = (data) => {
-        for (const [key, value] of Object.entries(data)) {
-            console.log(`>>> ${key}: ${value}`);
-          };
-    };
+    // const entries = (data) => {
+    //     for (const [key, value] of Object.entries(data)) {
+    //         console.log(`>>> ${key}: ${value}`);
+    //       };
+    // };
 
     const submitFC = ()=>{
         const joinInfo = {
             email : route.params.email,
             password : password,
-            name : '테스트',
-            birth : '201201',
-            phone : '01011223344'
+            name: route.params.name,
+            birth: route.params.birth,
+            phone: route.params.phone
         }
         return(JSON.stringify(joinInfo));
     }
@@ -126,7 +136,7 @@ const JoinPassword = ( { route, navigation }: Props ) => {
             if(res.status === 400) return res.json();
         })
         .then( data => {
-            setDataObj(data);
+            return navigation.navigate('Intro');
         }).catch(error => 
             console.error(error)
         );
@@ -136,7 +146,7 @@ const JoinPassword = ( { route, navigation }: Props ) => {
         <Container>
             <Sheet>
                 <Animated.View style={[aStyle.animationView,{ opacity: fadeAnim }]} >
-                    <TopBox>
+                    <ContentBox>
                         <InputHeader 
                             navigation={navigation}
                             firstLine="사용하실 비밀번호를"
@@ -162,24 +172,35 @@ const JoinPassword = ( { route, navigation }: Props ) => {
                             />
                         </InputBox>
                         <SupplementText>영문, 숫자, 특수기호를 포함 8~10자</SupplementText>
-                        <SupplementText>{
-                            dataObj === undefined ? '아직!' : dataObj.toString()
-                            }</SupplementText>
-                    </TopBox>
                     
-                    <BottomBtn
+                    {/* <BottomBtn
                         disabled={!checkPW({password, msg}).check}
                         style={checkPW({password, msg}).check ? {backgroundColor: commonValue.c_brand} : {backgroundColor: commonValue.c_supplement}}
                         onPress={()=>{                            
-                                                        
-                            // console.log(submitFC());
-                            console.log(fetchJoin());
+                            fetchJoin();
                         }}
                     >
                         <ContentText style={{color: '#ffffff'}}>
                             {checkPW({password, msg}).msg}
                         </ContentText>
-                    </BottomBtn>
+                    </BottomBtn> */}
+
+
+                        <BottomBtn  
+                            disabled={!checkPW({password, msg}).check}
+                            style={checkPW({password, msg}).check ? {backgroundColor: commonValue.c_brand} : {backgroundColor: commonValue.c_supplement}}
+                            onPress={()=>{                            
+                                fetchJoin();
+                            }}
+                        >
+                            <Gradient colors={['#f4ff5f', commonValue.c_brand]} start={{x: 0, y: 1}} end={{x: 0.5, y: 0}}
+                            style={ checkPW({password, msg}).check ? { opacity: 100 } : { opacity: 0 } } />
+                            <ContentText style={{color: '#ffffff' }}>
+                                {checkPW({password, msg}).msg}
+                            </ContentText>
+                        </BottomBtn>
+                    </ContentBox>
+
                 </Animated.View>
             </Sheet>
         </Container>

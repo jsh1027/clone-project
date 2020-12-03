@@ -1,5 +1,8 @@
 import { Layout } from '@react-navigation/stack/lib/typescript/src/types';
-import { Animated } from 'react-native';
+import { Animated, Dimensions } from 'react-native';
+
+const windowW = Dimensions.get('window').width;
+
 
 interface Props {
     current: {
@@ -105,4 +108,70 @@ const DefaultInputOptions = {
   cardOverlayEnabled: false
 };
 
-export { DefaultOptions, GrowModalOptions, SlideOptions, DefaultInputOptions };
+const DrawerOptions = {                    
+  cardStyleInterpolator: ({ current: { progress }, layouts }: Props) => ({
+    cardStyle: {
+      transform: [
+        {
+          translateX: progress.interpolate({
+          inputRange: [0, 1],
+          outputRange: [-windowW, 0],
+          }),
+        }
+      ]
+    },
+    overlayStyle: {
+      opacity: progress.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 0.5],
+        extrapolate: 'clamp',
+      }),
+    },
+  })
+};
+
+const AgencyOptions = {
+  cardStyleInterpolator: ({ current: { progress }, layouts }: Props) => ({
+    cardStyle: {
+      transform: [
+        {
+          translateY: progress.interpolate({
+          inputRange: [0, 1],
+          outputRange: [500, 0],
+          }),
+        }
+      ]
+    },
+    overlayStyle: {
+      opacity: progress.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 0.5],
+        extrapolate: 'clamp',
+      }),
+    },
+  }),
+};
+
+const CitizenOptions = {
+  cardStyleInterpolator: ({ current: { progress }, layouts }: Props) => ({
+    cardStyle: {
+      transform: [
+        {
+          translateY: progress.interpolate({
+          inputRange: [0, 1],
+          outputRange: [180, 0],
+          }),
+        }
+      ]
+    },
+    overlayStyle: {
+      opacity: progress.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 0.5],
+        extrapolate: 'clamp',
+      }),
+    },
+  }),
+};
+
+export { DefaultOptions, GrowModalOptions, SlideOptions, DefaultInputOptions, DrawerOptions, CitizenOptions, AgencyOptions };

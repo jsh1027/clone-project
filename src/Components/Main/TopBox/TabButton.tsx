@@ -37,7 +37,7 @@ const TabButton = ({navigation}: Props) => {
                 underlayColor={commonValue.c_brand}
                 onPressIn={()=> colorChange(true)}
                 onPressOut={()=> colorChange(false)}
-                onPress={()=>navigation.navigate("Intro")}
+                onPress={()=>navigation.navigate("MainDrawer")}
             >
                 <TabIcon name="menu" color={color} />
             </Tab>

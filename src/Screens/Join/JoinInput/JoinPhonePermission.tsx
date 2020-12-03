@@ -14,8 +14,7 @@ import { checkSelect } from '~/Assets/Validate/validateFC';
 import UserInfoInput from '~/Components/Join/JoinInput/UserInfoInput';
 
 
-
-type NavigationProp = StackNavigationProp<StackNaviParamList, 'Intro'>;
+type NavigationProp = StackNavigationProp<StackNaviParamList>;
 interface Props {
     navigation: NavigationProp;
     route: {
@@ -69,7 +68,6 @@ const Gradient = Styled(LinearGradient)`
 
 const ScrollView = Styled.View`
     width: ${windowW}px;
-    padding: 5% 10% 0% 10%;
 `;
 
 const SelectBox = Styled.View`
@@ -101,6 +99,15 @@ const OptionLabel = Styled.Text`
     margin-right: 12px;
 `;
 
+const Cover = Styled.View`
+    width: ${windowW}px;
+    height: 230px;
+    position: absolute;
+    bottom: 0;
+
+    background-color: #ffffff;
+`;
+
 const aStyle = StyleSheet.create({
     animationView: {
       width: windowW,
@@ -112,13 +119,37 @@ const aStyle = StyleSheet.create({
 
 const JoinPhonePermission = ( { route, navigation }: Props ) => {
     const fadeAnim = useRef(new Animated.Value(0)).current;
+    const componentIn = useRef(new Animated.Value(0)).current;
+    const componentOut = useRef(new Animated.Value(1)).current;
+
+    const slideAnim = useRef(new Animated.ValueXY({x:0, y: 90})).current;
+    const slideIn = () => {
+        Animated.timing(slideAnim, {
+          toValue: { x: 0, y: -280 },
+          useNativeDriver: true
+        }).start();
+    };
+    const fadeIn = () => { Animated.timing( componentIn, { toValue: 1, duration: 500, useNativeDriver: true } ).start(); };
+    const fadeOut = () => { Animated.timing( componentOut, { toValue: 0, duration: 800, useNativeDriver: true } ).start(); };
+
+
     React.useEffect(() => {
       Animated.timing( fadeAnim, { toValue: 1, duration: 700, useNativeDriver: true } ).start();
       navigation.addListener('beforeRemove', (e) => {
         Animated.timing( fadeAnim, { toValue: 0, duration: 200, useNativeDriver: true } ).start(); });
-        
-    }, [fadeAnim])
 
+        if(route.params?.nextFocus === 'nameInput'){
+            nameInput.current.focus();
+        } else if (route.params?.nextFocus === 'phoneInput'){
+            phoneInput.current.focus();
+        }
+
+
+    }, [fadeAnim, route.params?.citizenInfo, route.params?.agency,  route.params?.nextFocus]);
+
+
+    const nameInput = useRef(null);
+    const phoneInput = useRef(null);
 
     const [ stateObj, setStateObj ] = useState(unselectedObj);
     let msg = '';
@@ -141,8 +172,14 @@ const JoinPhonePermission = ( { route, navigation }: Props ) => {
     //select ALL
     const selectAllFC = ()=>{
         for (const [key, value] of Object.entries(stateObj)) {
-            if( value === false ){ return selectedObj; }
-                else { return unselectedObj; }
+            if( value === false ){ 
+                fadeIn();
+                fadeOut();
+                slideIn();
+                return selectedObj; 
+            } else { 
+                return unselectedObj; 
+            }
         }
     };
 
@@ -161,59 +198,59 @@ const JoinPhonePermission = ( { route, navigation }: Props ) => {
                         />
                     </HeaderBox>
 
+                    <Animated.View style={ { opacity: componentOut } } >
+                        <ScrollView>
+                            <SelectBox>
+                                <SelectAllBtn text="본인인증 약관 모두 동의" 
+                                    pressFC={ () => {
+                                        setStateObj( selectAllFC() );
+                                    } } 
+                                    color={stateObj.all}
+                                />
 
-                    {/* <ScrollView>
+                                <SelectOption label='필수' title='개인정보 이용 동의' iconName='chevron-right' 
+                                    pressFC={ () => {
+                                        setStateObj( reverseValueFC(stateObj, "op1") ); 
+                                    }}
+                                    color={stateObj.op1}
+                                />
+
+                                <SelectOption label='필수' title='고유식별정보 처리 동의' iconName='chevron-right'
+                                    pressFC={ () => {
+                                        setStateObj( reverseValueFC(stateObj, "op2") ); 
+                                    }}
+                                    color={stateObj.op2}
+                                />
+
+                                <SelectOption label='필수' title='서비스 이용약관 동의' iconName='chevron-right'
+                                    pressFC={ () => {
+                                        setStateObj( reverseValueFC(stateObj, "op3") ); 
+                                    }}
+                                    color={stateObj.op3}
+                                />
+
+                                <SelectOption label='필수' title='통신사 이용약관 동의' iconName='chevron-right'
+                                    pressFC={ () => {
+                                        setStateObj( reverseValueFC(stateObj, "op4") ); 
+                                    }}
+                                    color={stateObj.op4}
+                                />
+                            </SelectBox>
+                        </ScrollView>
+                    </Animated.View>
+
+                    <Animated.View style={{ transform: [{translateY: slideAnim.y}], opacity: componentIn }} >
                         <SelectBox>
-                            <SelectAllBtn text="본인인증 약관 모두 동의" 
-                                pressFC={ () => {
-                                    setStateObj( selectAllFC() );
-                                } } 
-                                color={stateObj.all}
-                            />
-
-                            <SelectOption label='필수' title='개인정보 이용 동의' iconName='chevron-right' 
-                                pressFC={ () => {
-                                    setStateObj( reverseValueFC(stateObj, "op1") ); 
-                                }}
-                                color={stateObj.op1}
-                            />
-
-                            <SelectOption label='필수' title='고유식별정보 처리 동의' iconName='chevron-right'
-                                pressFC={ () => {
-                                    setStateObj( reverseValueFC(stateObj, "op2") ); 
-                                }}
-                                color={stateObj.op2}
-                            />
-
-                            <SelectOption label='필수' title='서비스 이용약관 동의' iconName='chevron-right'
-                                pressFC={ () => {
-                                    setStateObj( reverseValueFC(stateObj, "op3") ); 
-                                }}
-                                color={stateObj.op3}
-                            />
-
-                            <SelectOption label='필수' title='통신사 이용약관 동의' iconName='chevron-right'
-                                pressFC={ () => {
-                                    setStateObj( reverseValueFC(stateObj, "op4") ); 
-                                }}
-                                color={stateObj.op4}
-                            />
+                            <UserInfoInput 
+                            nameInput={nameInput}
+                            phoneInput={phoneInput}
+                            citizenInfo={route.params?.citizenInfo}
+                            agency={route.params?.agency}
+                            navigation={navigation} />
                         </SelectBox>
-                    </ScrollView> */}
-                    <SelectBox>
-                        <UserInfoInput />
-                    </SelectBox>
+                    </Animated.View>
 
-
-                    {/* <BottomBtn 
-                    onPress={()=>{ navigation.navigate('JoinEmail') }} 
-                    disabled={!isChecked()}>
-                        <Gradient colors={['#f4ff5f', commonValue.c_brand]} start={{x: 0, y: 1}} end={{x: 0.5, y: 0}}
-                            style={isChecked() ? { opacity: 100 } : { opacity: 0 }} />
-                        <ContentText style={{color: '#ffffff'}}>
-                            { checkSelect({isChecked, msg}).msg }
-                        </ContentText>
-                    </BottomBtn> */}
+                    <Cover />
 
                 </Animated.View>
             </Sheet>

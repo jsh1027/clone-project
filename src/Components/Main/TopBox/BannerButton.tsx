@@ -3,6 +3,7 @@ import Styled from 'styled-components/native'
 import commonValue from '~/Components/Common/commonValue';
 import { normalize, ContentText } from '~/Components/Common/TextStyles';
 import Icon from 'react-native-vector-icons/Entypo'
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const Banner = Styled.TouchableHighlight`
     flex: 6;
@@ -37,11 +38,13 @@ const ArrowIcon = Styled(Icon)`
 `;
 
 
+type NavigationProp = StackNavigationProp<StackNaviParamList, 'Main'>;
 
 interface Props {
     onPress?: () => void;
+    navigation: NavigationProp;
 }
-const BannerButton = (props: Props) => {
+const BannerButton = ( props: Props) => {
     let isPressed = false;
     const colorChange = (value: boolean) => isPressed = value;
 
@@ -50,6 +53,7 @@ const BannerButton = (props: Props) => {
                 underlayColor={commonValue.c_click}
                 onPressIn={()=> colorChange(true)}
                 onPressOut={()=> colorChange(false)}
+                onPress={() => props.navigation.navigate('Intro')}
             >
                 <Box>
                     <BannerText numberOfLines={1} ellipsizeMode="tail">

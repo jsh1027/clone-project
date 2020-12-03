@@ -6,6 +6,7 @@ type StackNaviParamList = {
 
     LoginSelect: undefined;
     LoginAnotherSelect: undefined;
+    Login: undefined;
     
     JoinSelect: undefined;
     JoinAnotherSelect: undefined;
@@ -13,4 +14,9 @@ type StackNaviParamList = {
     JoinPassword: undefined;
     JoinPermissionSelect: undefined;
     JoinPhonePermission: undefined;
+    CitizenSelectMdal: undefined;
+
+
+    // Drawer
+    MainDrawer: undefined;
 }

@@ -74,16 +74,32 @@ const mkOptionSelectFC = (obj, key) => {
     if( obj[key] === false ){ //false -> true
         newObj['mkobj_all'] = true;
         newObj[key] = true;
+
+        for (const [key, value] of Object.entries(newObj)) {
+            if( key !== 'all' ){
+                if( value === false ) return newObj;
+            };
+        };
+        
+        newObj['all'] = true;
+
     } else { //true -> false
+
+        newObj['all'] = false;
         newObj['mkobj_all'] = false;
         newObj[key] = false;
+
         const arr = [newObj['mkobj1'], newObj['mkobj2'], newObj['mkobj3']];
         arr.forEach( (v) => {
-            if(v === true) newObj['mkobj_all'] = true;
+            if(v === true) {
+                newObj['mkobj_all'] = true;
+            };
         });
+
     }
+
     return newObj;
-}
+};
 
 
 

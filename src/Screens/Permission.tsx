@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { PermissionsAndroid } from 'react-native';
 import Styled from 'styled-components/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { SupplementText, TitleText, BottomBtnText } from '~/Components/Common/TextStyles';
+import { SupplementText, TitleText, BottomBtnText, ContentText } from '~/Components/Common/TextStyles';
 import PermissionList from '~/Components/Permission/PermissionList';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { BottomBtn } from '~/Components/Common/Button';
+// import { BottomBtn } from '~/Components/Common/Button';
 import commonValue from '~/Components/Common/commonValue';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 type NavigationProp = StackNavigationProp<StackNaviParamList, 'Permission'>;
@@ -22,7 +23,7 @@ const SafeAreaView = Styled.SafeAreaView`
 const Container = Styled.SafeAreaView`
     flex:1;
     justify-content: center;
-    padding: 0 5% 0 5%;
+    padding: 0 8% 0 8%;
 `;
 
 const TitleBox = Styled.View`
@@ -46,6 +47,21 @@ const SupplementBox = Styled.View`
     align-items: center;
 `;
 
+const BottomBtn = Styled.TouchableOpacity`
+    width: 100%;
+    height: 65px;
+    justify-content: center;
+    align-items: center;
+    background-color: ${commonValue.c_supplement};
+`;
+
+const Gradient = Styled(LinearGradient)`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+`;
 
 
 
@@ -126,9 +142,16 @@ const Permission = ({navigation}: Props) => {
                 
             </Container>
 
-            <BottomBtn onPress={ () =>  navigation.replace('PushNotice') }>
+            {/* <BottomBtn onPress={ () =>  navigation.replace('PushNotice') }>
                 <BottomBtnText>확인</BottomBtnText>
-            </BottomBtn>
+            </BottomBtn> */}
+            <BottomBtn 
+            onPress={() =>  navigation.replace('PushNotice')}>
+                <Gradient colors={['#f4ff5f', commonValue.c_brand]} start={{x: 0, y: 1}} end={{x: 0.5, y: 0}} />
+                <ContentText style={{color: '#ffffff'}}>
+                    확인
+                </ContentText>
+            </BottomBtn>            
         </SafeAreaView>
     );
 };
