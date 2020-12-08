@@ -5,7 +5,7 @@ import Styled from 'styled-components/native';
 import commonValue from '~/Components/Common/commonValue';
 import InputHeader from '~/Components/Join/JoinInput/InputHeader';
 import { ContentText } from '~/Components/Common/TextStyles';
-import { checkEmail } from '~/Assets/Validate/validateFC';
+import { checkLogin } from '~/Assets/Validate/validateFC';
 import LinearGradient from 'react-native-linear-gradient';
 import { UserContext } from '~/Context/User';
 
@@ -49,7 +49,7 @@ const BottomBtn = Styled.TouchableOpacity`
     height: 60px;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
+    margin-top: 30px;
     border-radius: 30px;
     background-color: ${commonValue.c_supplement};
 `;
@@ -65,7 +65,8 @@ const Gradient = Styled(LinearGradient)`
 
 const InputBox = Styled.View`
     width: 100%;
-    justify-content: center;
+    height: 150px;
+    justify-content: space-around;
     align-items: center;
 `;
 
@@ -74,11 +75,8 @@ const TextInput = Styled.TextInput`
     height: 60px;
     font-size: 15px;
     font-weight: bold;
-`;
-
-const InputBorder = Styled.View`
-    width: 100%;
-    height: 2px;
+    padding-left: 20px;
+    border-bottom-width: 1px;
 `;
 
 const aStyle = StyleSheet.create({
@@ -138,6 +136,8 @@ const JoinEmail = ( { navigation }: Props ) => {
     };    
     //로그인 Fetch =========================================================================<
 
+    const [ focus, setFocus ] = useState<string>('email');
+    const passwordInput = useRef(null);
 
     return(
         <>      
@@ -145,7 +145,7 @@ const JoinEmail = ( { navigation }: Props ) => {
             <Sheet>
                 <Animated.View style={[aStyle.animationView,{ opacity: fadeAnim }]} >
                     <ContentBox>
-                        <InputHeader 
+                        <InputHeader
                             navigation={navigation}
                             firstLine="민트카 로그인"
                             secondLine=""
@@ -163,13 +163,13 @@ const JoinEmail = ( { navigation }: Props ) => {
                                     setEmail(text);
                                     // checkEmail({email, msg});
                                 }}                            
-                            value={email}        
-                            />
-                            <InputBorder 
-                            style={{backgroundColor: commonValue.c_brand}}
+                            value={email}   
+                            onSubmitEditing={()=> passwordInput.current.focus()}
+                            style={focus==='email' ? {borderBottomColor: commonValue.c_brand}: {borderBottomColor: commonValue.c_unselect}}     
                             />
 
                             <TextInput
+                            ref={passwordInput}
                             textContentType={'password'}
                             autoCompleteType={'password'}
                             secureTextEntry={true}
@@ -179,10 +179,9 @@ const JoinEmail = ( { navigation }: Props ) => {
                                 (text: string) => {
                                     setPassword(text);
                                 }}                            
-                            value={password}        
-                            />
-                            <InputBorder 
-                            style={{backgroundColor: commonValue.c_brand}}
+                            value={password}     
+                            onFocus={()=> setFocus('password')}
+                            style={focus==='password' ? {borderBottomColor: commonValue.c_brand}: {borderBottomColor: commonValue.c_unselect}}     
                             />
 
 
@@ -190,15 +189,15 @@ const JoinEmail = ( { navigation }: Props ) => {
                         
 
                         <BottomBtn
-                            disabled={!checkEmail({email, msg}).check}
+                            disabled={!checkLogin({email, password, msg}).check}
                             onPress={()=>{
                                 fetchLogin();
                             }}
                         >
                             <Gradient colors={['#f4ff5f', commonValue.c_brand]} start={{x: 0, y: 1}} end={{x: 0.5, y: 0}}
-                            style={ checkEmail({email, msg}).check ? { opacity: 100 } : { opacity: 0 } } />
+                            style={ checkLogin({email, password, msg}).check ? { opacity: 100 } : { opacity: 0 } } />
                             <ContentText style={{color: '#ffffff' }}>
-                                {checkEmail({email, msg}).msg}
+                                {checkLogin({email, password, msg}).msg}
                             </ContentText>
                         </BottomBtn>
 

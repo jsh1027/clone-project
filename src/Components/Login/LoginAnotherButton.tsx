@@ -26,8 +26,8 @@ const LoginAnotherButton = ( { navigation }: Props ) => {
         <Button
         onPress={()=> navigation.navigate('LoginAnotherSelect')}
         >
-            <SupplementText style={{textDecorationLine: 'underline'}}>
-                다른 방법으로 로그인
+            <SupplementText style={{textDecorationLine: 'underline'}} allowFontScaling={false} >
+                다른 방법으로 로그인?
             </SupplementText>
         </Button>
     );

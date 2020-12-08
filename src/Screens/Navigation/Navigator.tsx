@@ -11,7 +11,8 @@ import {
     DefaultInputOptions, 
     DrawerOptions,
     AgencyOptions,
-    CitizenOptions
+    CitizenOptions,
+    MainModalOptions
 } from '~/Screens/Navigation/NavigationOptions';
 
 
@@ -19,6 +20,7 @@ import {
 import Permission from '~/Screens/Permission';
 import PushNotice from '~/Screens/PushNotice';
 import Intro from '~/Screens/Intro';
+import MainModal from '~/Screens/MainModal/MainModal';
 import Main from '~/Screens/Main';
 
 //Join
@@ -98,6 +100,10 @@ function UserNavi() {
         {/* MainDrawer  */}
             <UserStack.Screen name="MainDrawer" component={MainDrawer}
                 options={DrawerOptions} />
+
+
+            <UserStack.Screen name="MainModal" component={MainModal}
+                options={MainModalOptions} />
         
                   
         {/* 로그인  */}
@@ -226,6 +232,9 @@ function RootNavi() {
                 name="JoinPassword" component={JoinPassword}                
                 options={SlideOptions}     
             />            
+
+            <RootStack.Screen name="MainModal" component={MainModal}
+                options={MainModalOptions} />
         </RootStack.Navigator>
     );
 };

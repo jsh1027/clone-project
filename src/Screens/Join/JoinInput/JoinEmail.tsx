@@ -99,12 +99,12 @@ const JoinEmail = ( { route, navigation }: Props ) => {
 
     let msg = '이메일을 입력해주세요';
 
-    const paramData = ()=>({
+    const paramData = {
         email: email,
         name: route.params.name,
         birth: route.params.birth,
         phone: route.params.phone
-    });
+    };
 
     return(
         <>      
@@ -140,7 +140,7 @@ const JoinEmail = ( { route, navigation }: Props ) => {
                         <BottomBtn
                             disabled={!checkEmail({email, msg}).check}
                             onPress={()=>{
-                                if( (checkEmail({email, msg})).check ) navigation.navigate("JoinPassword", paramData());
+                                if( (checkEmail({email, msg})).check ) navigation.navigate("JoinPassword", {paramData: paramData});
                             }}
                         >
                             <Gradient colors={['#f4ff5f', commonValue.c_brand]} start={{x: 0, y: 1}} end={{x: 0.5, y: 0}}

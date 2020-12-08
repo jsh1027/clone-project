@@ -98,22 +98,17 @@ const JoinPassword = ( { route, navigation }: Props ) => {
         Animated.timing( fadeAnim, { toValue: 0, duration: 200, useNativeDriver: true } ).start(); });
     }, [fadeAnim]);
 
+
     const [ password, setPassword ] = useState<string>('');
     let msg = '비밀번호를 입력해주세요';
 
-    // const entries = (data) => {
-    //     for (const [key, value] of Object.entries(data)) {
-    //         console.log(`>>> ${key}: ${value}`);
-    //       };
-    // };
-
     const submitFC = ()=>{
         const joinInfo = {
-            email : route.params.email,
+            email : route.params.paramData.email,
             password : password,
-            name: route.params.name,
-            birth: route.params.birth,
-            phone: route.params.phone
+            name: route.params.paramData.name,
+            birth: route.params.paramData.birth,
+            phone: route.params.paramData.phone
         }
         return(JSON.stringify(joinInfo));
     }
@@ -173,24 +168,12 @@ const JoinPassword = ( { route, navigation }: Props ) => {
                         </InputBox>
                         <SupplementText>영문, 숫자, 특수기호를 포함 8~10자</SupplementText>
                     
-                    {/* <BottomBtn
-                        disabled={!checkPW({password, msg}).check}
-                        style={checkPW({password, msg}).check ? {backgroundColor: commonValue.c_brand} : {backgroundColor: commonValue.c_supplement}}
-                        onPress={()=>{                            
-                            fetchJoin();
-                        }}
-                    >
-                        <ContentText style={{color: '#ffffff'}}>
-                            {checkPW({password, msg}).msg}
-                        </ContentText>
-                    </BottomBtn> */}
-
-
                         <BottomBtn  
                             disabled={!checkPW({password, msg}).check}
                             style={checkPW({password, msg}).check ? {backgroundColor: commonValue.c_brand} : {backgroundColor: commonValue.c_supplement}}
                             onPress={()=>{                            
                                 fetchJoin();
+                                // console.log(submitFC());
                             }}
                         >
                             <Gradient colors={['#f4ff5f', commonValue.c_brand]} start={{x: 0, y: 1}} end={{x: 0.5, y: 0}}

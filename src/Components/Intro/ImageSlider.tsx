@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Image, ScrollView, NativeEventEmitter } from 'react-native';
+import { View, Image, ScrollView, NativeEventEmitter, Text } from 'react-native';
 import styles from '~/Components/Intro/ImageSliderStyles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
@@ -35,7 +35,7 @@ const ImageSlider = ({ images, width, height }: Props) => {
                             key={index}
                             resizeMode="stretch"
                             source={image.uri}
-                            style={{width, height}} />
+                            style={{width, height, resizeMode: 'contain', marginTop: 70}} />
                     ))
                 }
             </ScrollView>
@@ -43,7 +43,7 @@ const ImageSlider = ({ images, width, height }: Props) => {
                 {
                     images.map((i, k) => (
                         ( k === state ?
-                            <Icon5 key={k} 
+                            <Icon key={k} 
                                 name= 'circle'
                                 style={styles.pagingActive}
                             />

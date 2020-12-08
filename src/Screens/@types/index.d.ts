@@ -19,4 +19,6 @@ type StackNaviParamList = {
 
     // Drawer
     MainDrawer: undefined;
+
+    MainModal: undefined;
 }

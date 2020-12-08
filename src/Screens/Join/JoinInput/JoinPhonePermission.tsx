@@ -250,7 +250,7 @@ const JoinPhonePermission = ( { route, navigation }: Props ) => {
                         </SelectBox>
                     </Animated.View>
 
-                    <Cover />
+                    {/* <Cover /> */}
 
                 </Animated.View>
             </Sheet>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Styled from 'styled-components/native';
 import commonValue from '~/Components/Common/commonValue';
 import LinearGradient from 'react-native-linear-gradient';
-import { ContentTitleText } from '~/Components/Common/TextStyles';
+import { ContentText } from '~/Components/Common/TextStyles';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 
@@ -38,7 +38,7 @@ const Box = Styled.View`
 const Line = Styled.View`
     width: 2px;
     height: 30%;
-    background-color: ${commonValue.c_supplement};
+    background-color: ${commonValue.c_unselect};
 `;
 
 const Button = Styled.TouchableOpacity`
@@ -49,6 +49,10 @@ const Button = Styled.TouchableOpacity`
     align-items: center;
 `;
 
+const Text = Styled(ContentText)`
+    font-size: 18px;
+    color: ${commonValue.c_menu};
+`;
 
 
 const BottomButtonBox = ( {navigation}: Props ) => {
@@ -65,7 +69,7 @@ const BottomButtonBox = ( {navigation}: Props ) => {
                         ()=> { 
                             navigation.navigate("LoginSelect")}
                     }>
-                        <ContentTitleText>로그인</ContentTitleText>
+                        <Text>로그인</Text>
                     </Button>
                     <Line />
                     <Button
@@ -73,7 +77,7 @@ const BottomButtonBox = ( {navigation}: Props ) => {
                             ()=> { 
                                 navigation.navigate("JoinSelect")}
                     }>
-                        <ContentTitleText>회원가입</ContentTitleText>
+                        <Text>회원가입</Text>
                     </Button>
                 </Box>
             </Shadow>

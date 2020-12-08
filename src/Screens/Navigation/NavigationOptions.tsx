@@ -174,4 +174,26 @@ const CitizenOptions = {
   }),
 };
 
-export { DefaultOptions, GrowModalOptions, SlideOptions, DefaultInputOptions, DrawerOptions, CitizenOptions, AgencyOptions };
+const MainModalOptions = {
+  cardStyleInterpolator: ({ current: { progress }, layouts }: Props) => ({
+    cardStyle: {
+      transform: [
+        {
+          translateY: progress.interpolate({
+          inputRange: [0, 1],
+          outputRange: [230, 0],
+          }),
+        }
+      ]
+    },
+    overlayStyle: {
+      opacity: progress.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 0.5],
+        extrapolate: 'clamp',
+      }),
+    },
+  }),
+};
+
+export { DefaultOptions, GrowModalOptions, SlideOptions, DefaultInputOptions, DrawerOptions, CitizenOptions, AgencyOptions, MainModalOptions };

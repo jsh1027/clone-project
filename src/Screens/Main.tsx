@@ -21,11 +21,11 @@ const SafeAreaView = Styled.SafeAreaView`
 
 
 const Main = ({navigation}: Props) => {
-    const [ pos, setPos ] = useState(undefined);
+    const [ pos, setPos ] = useState(1);
 
     return (
         <SafeAreaView>
-            <Map pos={pos}/>
+            <Map pos={pos} navigation={navigation}/>
             <TopBox navigation={navigation} />
             <BottomBox pos={pos} setPos={setPos}/>
         </SafeAreaView>

@@ -12,16 +12,30 @@ interface Props {
 
 const Container = Styled.View`
     width: 100%;
-    height: 10%;
+    height: 30%;
     position: absolute;
     justify-content: center;
     align-items: flex-end;
-    /* padding-top: ${commonValue.sb_margintop}px; */
 `;
 
 const TextBtn = Styled.TouchableOpacity`
+    flex: 1;
     width: 30%;
+    justify-content: center;
     align-items: center;
+`;
+
+const TopTextBox = Styled.View`
+    flex: 2;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+`;
+
+const TopText = Styled.Text`
+    font-size: 27px;
+    font-weight: bold;
+    text-align: center;
 `;
 
 const TopButtonBox = ({navigation}: Props) => {
@@ -30,8 +44,14 @@ const TopButtonBox = ({navigation}: Props) => {
             <TextBtn 
                 onPress={ () => navigation.navigate('Main') }
             >
-                <SupplementText>둘러보기</SupplementText>
+                <SupplementText style={{fontSize: 16}}>
+                    둘러보기
+                </SupplementText>
             </TextBtn>
+            <TopTextBox>
+                <TopText>일상의 이동을</TopText>
+                <TopText>새로 그리다</TopText>
+            </TopTextBox>
         </Container>
     );
 };
